@@ -1,1 +1,1 @@
-<H Style="color:blue,background-col">Leetcode daily code repository <H>
+<H style="font-size:300%;">Leetcode daily code repository <H>
