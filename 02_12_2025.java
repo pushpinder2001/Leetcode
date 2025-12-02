@@ -1,0 +1,68 @@
+You are given a 2D integer array points, where points[i] = [xi, yi] represents the coordinates of the ith point on the Cartesian plane.
+
+A horizontal trapezoid is a convex quadrilateral with at least one pair of horizontal sides (i.e. parallel to the x-axis). Two lines are parallel if and only if they have the same slope.
+
+Return the number of unique horizontal trapezoids that can be formed by choosing any four distinct points from points.
+
+Since the answer may be very large, return it modulo 109 + 7.
+
+ 
+
+Example 1:
+
+Input: points = [[1,0],[2,0],[3,0],[2,2],[3,2]]
+
+Output: 3
+
+Explanation:
+
+
+
+There are three distinct ways to pick four points that form a horizontal trapezoid:
+
+Using points [1,0], [2,0], [3,2], and [2,2].
+Using points [2,0], [3,0], [3,2], and [2,2].
+Using points [1,0], [3,0], [3,2], and [2,2].
+Example 2:
+
+Input: points = [[0,0],[1,0],[0,1],[2,1]]
+
+Output: 1
+
+Explanation:
+
+
+
+There is only one horizontal trapezoid that can be formed.
+
+ 
+
+Constraints:
+
+4 <= points.length <= 105
+–108 <= xi, yi <= 108
+All points are pairwise distinct.
+
+Solution:
+class Solution {
+    public int countTrapezoids(int[][] points) {
+        long MOD=1_000_000_007L;
+        java.util.HashMap<Integer,Long> map=new java.util.HashMap<>();
+        for(int []p:points){
+            map.put(p[1],map.getOrDefault(p[1],0L)+1);
+        }
+        java.util.ArrayList<Long> seg=new java.util.ArrayList<>();
+        for(long k:map.values()){
+            if(k>=2)seg.add((k * (k-1)/2) % MOD);
+        }
+        long sum=0,ans=0;
+        for(long v:seg){
+            ans=(ans+v*sum)%MOD;
+            sum=(sum+v)%MOD;
+
+        }
+        return (int)ans;
+    }
+}
+
+  
